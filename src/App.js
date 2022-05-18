@@ -1,7 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { setProducts } from './Store/Actions/ProductActions';
 
 function App() {
+  const products = useSelector(state => state.allProducts.products);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+      .then(res => res.json())
+      .then(data => dispatch(setProducts(data)))
+  }, [])
+  console.log(products)
+
   return (
     <div className="App">
       <header className="App-header">
